@@ -1,7 +1,7 @@
+import { Observable } from 'rxjs';
+import { FeedPost } from './../../models/post.interface';
 import { FeedService } from './../../services/feed.service';
-import { Controller } from '@nestjs/common';
-import { Post, Get, Patch, Delete } from '@nestjs/common';
-
+import { Post, Get, Patch, Delete, Controller, Body } from '@nestjs/common';
 @Controller('feed')
 export class FeedController {
     constructor(
@@ -9,7 +9,27 @@ export class FeedController {
     ) {}
 
     @Post()
-    create(){
-        return this.feedService.createPost;
+    create(@Body() post:FeedPost): Observable<FeedPost> {
+        return this.feedService.createPost(post);
+    }
+
+    @Get()
+    getAll(){
+        // return this.feedService
+    }
+
+    @Get()
+    get(){
+
+    }
+
+    @Patch()
+    update(){
+
+    }
+
+    @Delete()
+    delete(){
+
     }
 }

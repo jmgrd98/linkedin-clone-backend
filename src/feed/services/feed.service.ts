@@ -1,17 +1,18 @@
-import { Post } from './../models/post.interface';
+import { FeedPost } from './../models/post.interface';
 import { Injectable } from '@nestjs/common';
-import { PostEntity } from '../models/post.entity';
+import { FeedPostEntity } from '../models/post.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Observable, from } from 'rxjs';
 
 @Injectable()
 export class FeedService {
     constructor(
-        @InjectRepository(PostEntity)
-        private readonly PostRepository: Repository<PostEntity>
+        @InjectRepository(FeedPostEntity)
+        private readonly feedPostRepository: Repository<FeedPostEntity>
     ) {}
 
-    createPost(post:Post) {
-        return this.PostRepository.save(post);
+    createPost(feedPost:FeedPost): Observable<FeedPost> {
+        return from(this.feedPostRepository.save(feedPost));
     }
 }
