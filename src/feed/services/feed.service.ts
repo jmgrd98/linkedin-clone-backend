@@ -20,6 +20,12 @@ export class FeedService {
         return from(this.feedPostRepository.find());
     }
 
+    findPosts(take:number = 10, skip:number = 0): Observable<FeedPost[]> {
+        return from(this.feedPostRepository.findAndCount({ take, skip }).then(([posts]) =>{
+            return <FeedPost[]>posts;
+        }));
+    }
+
     findPost(id: number) {
         // return from(this.feedPostRepository)
     }
