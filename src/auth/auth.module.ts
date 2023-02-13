@@ -1,12 +1,14 @@
+import { JwtGuard } from './guards/jwt.guard';
 import { UserEntity } from './models/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './guards/jwt.strategy';
 
 @Module({
-  providers: [AuthService],
+  providers: [AuthService, JwtGuard, JwtStrategy],
   controllers: [AuthController],
   imports: [
     JwtModule.registerAsync({
