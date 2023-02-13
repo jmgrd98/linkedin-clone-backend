@@ -23,6 +23,6 @@ export class UserEntity{
     role: Role;
 
     @OneToMany(() => FeedPostEntity, (feedPostEntity) => feedPostEntity.author)
-    feedPosts: FeedPostEntity[]
+    feedPosts: FeedPostEntity[];
 
 }
