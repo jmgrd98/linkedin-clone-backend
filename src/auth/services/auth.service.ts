@@ -1,6 +1,7 @@
 import { UserEntity } from './../models/user.entity';
 import { User } from './../models/user.interface';
 import { Observable, from } from 'rxjs';
+import { switchMap, map } from 'rxjs/operators';
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -22,15 +23,16 @@ export class AuthService {
         const { firstName, lastName, email, password } = user;
         return this.hashPassword(password).pipe(
             switchMap((hashedPassword:string) => {
-                return from(this.userRepository.save({}));
+                return from(this.userRepository.save({
+                    firstName,
+                    lastName,
+                    email,
+                    password:hashedPassword}))
+                    .pipe(map((user:User) => {
+                        delete user.password;
+                        return user;
+                    }));
             }),
         );
     }
-
-    function switchMap(
-        arg0: (hashedPassword:string) => void,
-    ): import ('rxjs').OperatorFunction<string, User> {
-        throw new Error('Function not implemented.');
-    }
-
 }

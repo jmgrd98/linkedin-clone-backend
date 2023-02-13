@@ -11,6 +11,6 @@ export class AuthController {
 
     @Post('register')
     register(@Body() user: User): Observable<User> {
-        return this.authService.registerAccount();
+        return this.authService.registerAccount(user);
     }
 }
