@@ -26,9 +26,9 @@ export class FeedService {
         }));
     }
 
-    findPost(id: number) {
-        // return from(this.feedPostRepository)
-    }
+    // findPost(id: number) {
+    //     return from(this.feedPostRepository)
+    // }
 
     updatePost(id: number, feedPost: FeedPost): Observable<UpdateResult> {
         return from(this.feedPostRepository.update(id, feedPost));
