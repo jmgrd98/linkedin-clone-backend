@@ -1,3 +1,4 @@
+import { User } from './../../auth/models/user.interface';
 import { FeedPost } from './../models/post.interface';
 import { Injectable } from '@nestjs/common';
 import { FeedPostEntity } from '../models/post.entity';
@@ -12,7 +13,10 @@ export class FeedService {
         private readonly feedPostRepository: Repository<FeedPostEntity>
     ) {}
 
-    createPost(feedPost:FeedPost): Observable<FeedPost> {
+    
+
+    createPost(user: User, feedPost:FeedPost): Observable<FeedPost> {
+        feedPost.author = user;
         return from(this.feedPostRepository.save(feedPost));
     }
 
