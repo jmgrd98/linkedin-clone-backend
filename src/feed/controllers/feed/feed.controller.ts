@@ -15,20 +15,18 @@ import {
   Request,
 } from '@nestjs/common';
 import { Param, UseGuards } from '@nestjs/common/decorators';
-@Controller('feed')
-export class FeedController {
+@Controller('feed')export class FeedController {
   constructor(private feedService: FeedService) {}
 
   @UseGuards(JwtGuard)
   @Post()
   create(@Body() feedPost: FeedPost, @Request() req): Observable<FeedPost> {
-    return this.feedService.createPost(req.user, feedPost);
-  }
+    return this.feedService.createPost(req.user, feedPost);}
 
-  // @Get()
-  // getAll(): Observable<FeedPost[]> {
-  //   return this.feedService.findAllPosts();
-  // }
+  @Get()
+  getAll(): Observable<FeedPost[]> {
+    return this.feedService.findAllPosts();
+  }
 
   @Get()
   findSelected(
