@@ -25,10 +25,10 @@ export class FeedController {
     return this.feedService.createPost(req.user, feedPost);
   }
 
-  @Get()
-  getAll(): Observable<FeedPost[]> {
-    return this.feedService.findAllPosts();
-  }
+  // @Get()
+  // getAll(): Observable<FeedPost[]> {
+  //   return this.feedService.findAllPosts();
+  // }
 
   @Get()
   findSelected(
