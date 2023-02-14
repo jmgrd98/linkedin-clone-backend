@@ -12,16 +12,23 @@ import {
   Controller,
   Body,
   Query,
-  Request,
-} from '@nestjs/common';
-import { Param, UseGuards } from '@nestjs/common/decorators';
-@Controller('feed')export class FeedController {
-  constructor(private feedService: FeedService) {}
+  Request
+} from "@nestjs/common";
+import { Param, UseGuards } from "@nestjs/common/decorators";
+import { Roles } from "../../../auth/decorators/roles.decorator";
+import { Role } from "../../../auth/models/role.enum";
 
+@Controller("feed")
+export class FeedController {
+  constructor(private feedService: FeedService) {
+  }
+
+  @Roles(Role.ADMIN)
   @UseGuards(JwtGuard)
   @Post()
   create(@Body() feedPost: FeedPost, @Request() req): Observable<FeedPost> {
-    return this.feedService.createPost(req.user, feedPost);}
+    return this.feedService.createPost(req.user, feedPost);
+  }
 
   @Get()
   getAll(): Observable<FeedPost[]> {
