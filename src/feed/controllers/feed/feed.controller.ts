@@ -12,16 +12,14 @@ import {
   Controller,
   Body,
   Query,
-  Request
-} from "@nestjs/common";
-import { Param, UseGuards } from "@nestjs/common/decorators";
-import { Roles } from "../../../auth/decorators/roles.decorator";
+  Request,
+} from '@nestjs/common';
+import { Param, UseGuards } from '@nestjs/common/decorators';
+import { Roles } from '../../../auth/decorators/roles.decorator';
 import { Role } from "../../../auth/models/role.enum";
-
-@Controller("feed")
+@Controller('feed')
 export class FeedController {
-  constructor(private feedService: FeedService) {
-  }
+  constructor(private feedService: FeedService) {}
 
   @Roles(Role.ADMIN)
   @UseGuards(JwtGuard)
