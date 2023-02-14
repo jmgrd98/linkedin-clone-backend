@@ -13,8 +13,6 @@ export class FeedService {
         private readonly feedPostRepository: Repository<FeedPostEntity>
     ) {}
 
-    
-
     createPost(user: User, feedPost:FeedPost): Observable<FeedPost> {
         feedPost.author = user;
         return from(this.feedPostRepository.save(feedPost));
