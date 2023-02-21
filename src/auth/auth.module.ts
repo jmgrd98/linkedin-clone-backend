@@ -6,9 +6,10 @@ import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './guards/jwt.strategy';
+import { RolesGuard } from "./guards/roles.guard";
 
 @Module({
-  providers: [AuthService, JwtGuard, JwtStrategy],
+  providers: [AuthService, JwtGuard, JwtStrategy, RolesGuard],
   controllers: [AuthController],
   imports: [
     JwtModule.registerAsync({

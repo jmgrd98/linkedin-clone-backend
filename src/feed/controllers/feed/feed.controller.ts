@@ -1,28 +1,20 @@
-import { JwtGuard } from './../../../auth/guards/jwt.guard';
-import { UpdateResult, DeleteResult } from 'typeorm';
-import { Observable } from 'rxjs';
-import { FeedPost } from './../../models/post.interface';
-import { FeedService } from './../../services/feed.service';
-import {
-  Post,
-  Get,
-  Patch,
-  Put,
-  Delete,
-  Controller,
-  Body,
-  Query,
-  Request,
-} from '@nestjs/common';
-import { Param, UseGuards } from '@nestjs/common/decorators';
-import { Roles } from '../../../auth/decorators/roles.decorator';
+import { JwtGuard } from "./../../../auth/guards/jwt.guard";
+import { DeleteResult, UpdateResult } from "typeorm";
+import { Observable } from "rxjs";
+import { FeedPost } from "./../../models/post.interface";
+import { FeedService } from "./../../services/feed.service";
+import { Body, Controller, Delete, Get, Post, Put, Query, Request } from "@nestjs/common";
+import { Param, UseGuards } from "@nestjs/common/decorators";
+import { Roles } from "../../../auth/decorators/roles.decorator";
 import { Role } from "../../../auth/models/role.enum";
+import { RolesGuard } from "../../../auth/guards/roles.guard";
+
 @Controller('feed')
 export class FeedController {
   constructor(private feedService: FeedService) {}
 
-  @Roles(Role.ADMIN)
-  @UseGuards(JwtGuard)
+  @Roles(Role.ADMIN, Role.PREMIUM)
+  @UseGuards(JwtGuard, RolesGuard)
   @Post()
   create(@Body() feedPost: FeedPost, @Request() req): Observable<FeedPost> {
     return this.feedService.createPost(req.user, feedPost);
