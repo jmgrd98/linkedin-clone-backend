@@ -14,6 +14,8 @@ export class IsCreatorGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest();
-    const { user, params }: { user: User; params: { id: number } };
+    const { user, params }: { user: User; params: { id: number } } = request;
+    if (!user || !params) return false;
+    if(user.role === 'admin') return true;
   }
 }
