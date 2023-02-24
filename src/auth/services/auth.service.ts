@@ -1,6 +1,6 @@
 import { UserEntity } from './../models/user.entity';
 import { User } from './../models/user.interface';
-import { Observable, from } from 'rxjs';
+import { Observable, from, pipe } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
@@ -69,7 +69,11 @@ export class AuthService {
 
   findUserById(id: number): Observable<User> {
     return from(
-      this.userRepository.findOne({ id }, { relations: ['feedPosts'] }),
+      this.userRepository.findOne({
+        where: {
+          id,
+        },
+      }),
     ).pipe(
       map((user: User) => {
         delete user.password;
