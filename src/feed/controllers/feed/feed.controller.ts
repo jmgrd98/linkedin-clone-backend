@@ -8,6 +8,7 @@ import { Param, UseGuards } from "@nestjs/common/decorators";
 import { Roles } from "../../../auth/decorators/roles.decorator";
 import { Role } from "../../../auth/models/role.enum";
 import { RolesGuard } from "../../../auth/guards/roles.guard";
+import { IsCreatorGuard } from "../../guards/is-creator.guard";
 
 @Controller('feed')
 export class FeedController {
@@ -37,6 +38,8 @@ export class FeedController {
   @Get()
   get() {}
 
+  // @Roles(Role.ADMIN, Role.PREMIUM)
+  @UseGuards(JwtGuard, IsCreatorGuard)
   @Put(':id')
   update(
     @Param('id') id: number,
