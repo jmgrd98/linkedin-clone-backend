@@ -16,6 +16,8 @@ export class IsCreatorGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const { user, params }: { user: User; params: { id: number } } = request;
     if (!user || !params) return false;
-    if(user.role === 'admin') return true;
+    if (user.role === 'admin') return true;
+    const userId = user.id;
+    const feedId = params.id;
   }
 }
