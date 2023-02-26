@@ -1,14 +1,23 @@
-import { JwtGuard } from "./../../../auth/guards/jwt.guard";
-import { DeleteResult, UpdateResult } from "typeorm";
-import { Observable } from "rxjs";
-import { FeedPost } from "./../../models/post.interface";
-import { FeedService } from "./../../services/feed.service";
-import { Body, Controller, Delete, Get, Post, Put, Query, Request } from "@nestjs/common";
-import { Param, UseGuards } from "@nestjs/common/decorators";
-import { Roles } from "../../../auth/decorators/roles.decorator";
-import { Role } from "../../../auth/models/role.enum";
-import { RolesGuard } from "../../../auth/guards/roles.guard";
-import { IsCreatorGuard } from "../../guards/is-creator.guard";
+import { JwtGuard } from './../../../auth/guards/jwt.guard';
+import { DeleteResult, UpdateResult } from 'typeorm';
+import { Observable } from 'rxjs';
+import { FeedPost } from './../../models/post.interface';
+import { FeedService } from './../../services/feed.service';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Post,
+  Put,
+  Query,
+  Request,
+} from '@nestjs/common';
+import { Param, UseGuards } from '@nestjs/common/decorators';
+import { Roles } from '../../../auth/decorators/roles.decorator';
+import { Role } from '../../../auth/models/role.enum';
+import { RolesGuard } from '../../../auth/guards/roles.guard';
+import { IsCreatorGuard } from '../../guards/is-creator.guard';
 
 @Controller('feed')
 export class FeedController {
@@ -34,9 +43,6 @@ export class FeedController {
     take = take > 20 ? 20 : take;
     return this.feedService.findPosts(take, skip);
   }
-
-  @Get()
-  get() {}
 
   // @Roles(Role.ADMIN, Role.PREMIUM)
   @UseGuards(JwtGuard, IsCreatorGuard)
