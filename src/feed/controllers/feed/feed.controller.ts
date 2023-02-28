@@ -35,7 +35,7 @@ export class FeedController {
     return this.feedService.findAllPosts();
   }
 
-  @Get()
+  @Get('select')
   findSelected(
     @Query('take') take = 1,
     @Query('skip') skip = 1,
